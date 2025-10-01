@@ -15,8 +15,8 @@ A comprehensive project demonstrating the integration of PostgreSQL and Neo4j gr
 
 ```
 .
-├── app/                    # Application code
-│   ├── dockerfile         # Docker configuration for the FastAPI app
+├── app/                  # Application code
+│   ├── dockerfile        # Docker configuration for the FastAPI app
 │   ├── etl.py            # ETL scripts for data transformation
 │   ├── main.py           # FastAPI application
 │   ├── queries.cypher    # Cypher queries for Neo4j
@@ -29,7 +29,7 @@ A comprehensive project demonstrating the integration of PostgreSQL and Neo4j gr
 │   └── db_seed.sql      # Sample data
 ├── neo4j/               # Neo4j data and configuration
 ├── docker-compose.yml   # Docker Compose configuration
-└── README.md           # This file
+└── README.md            # This file
 ```
 
 ## Prerequisites
