@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.log
+
+# Environnements virtuels
+.env
+.venv/
+env/
+venv/
+graph_env/
+
+# Docker
+docker-compose.override.yml
+
+# Base de données Postgres
+postgres_data/
+
+# Neo4j
+neo4j/data/
+neo4j/import/
+neo4j/logs/
+neo4j/conf/
+
+# Fichiers de configuration locaux
+local_settings.py
+.env.local
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+*~
+*.swp
+*.swo
