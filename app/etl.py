@@ -11,6 +11,7 @@ from neo4j import GraphDatabase
 import pandas as pd
 from pathlib import Path
 from typing import List, Dict, Any, Iterator
+from datetime import datetime
 
 def etl():
 
@@ -113,6 +114,8 @@ def etl():
         
         # Create Order nodes and PLACED relationships
         for _, row in df_orders.iterrows():
+            # Convert timestamp to ISO 8601 format for Neo4j
+            ts_iso = row['ts'].isoformat() if hasattr(row['ts'], 'isoformat') else str(row['ts'])
             run_cypher(neo4j_driver, """
                 MATCH (c:Customer {id: $customer_id})
                 CREATE (o:Order {
@@ -123,7 +126,7 @@ def etl():
             """, {
                 'id': row['id'],
                 'customer_id': row['customer_id'],
-                'ts': str(row['ts'])
+                'ts': ts_iso
             })
         print(f"  ✓ Created {len(df_orders)} orders")
         
@@ -149,6 +152,8 @@ def etl():
         print(f"  Found {len(df_events)} events")
         
         for _, row in df_events.iterrows():
+            # Convert timestamp to ISO 8601 format for Neo4j
+            ts_iso = row['ts'].isoformat() if hasattr(row['ts'], 'isoformat') else str(row['ts'])
             run_cypher(neo4j_driver, """
                 MATCH (c:Customer {id: $customer_id})
                 MATCH (p:Product {id: $product_id})
@@ -160,7 +165,7 @@ def etl():
                 'customer_id': row['customer_id'],
                 'product_id': row['product_id'],
                 'event_type': row['event_type'],
-                'ts': str(row['ts'])
+                'ts': ts_iso
             })
         print(f"  ✓ Created {len(df_events)} interaction relationships")
         
