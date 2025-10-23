@@ -49,7 +49,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - ./app/:/app/
+      - /app/__pycache__
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/shop
       - NEO4J_URI=bolt://neo4j:7687

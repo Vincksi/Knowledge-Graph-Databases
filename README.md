@@ -15,21 +15,21 @@ A comprehensive project demonstrating the integration of PostgreSQL and Neo4j gr
 
 ```
 .
-├── app/                  # Application code
-│   ├── dockerfile        # Docker configuration for the FastAPI app
-│   ├── etl.py            # ETL scripts for data transformation
-│   ├── main.py           # FastAPI application
-│   ├── queries.cypher    # Cypher queries for Neo4j
-│   ├── requirements.txt  # Python dependencies
-│   ├── start.sh          # Startup script
-│   └── utils.py          # Utility functions
+├── app/                   # Application code
+│   ├── dockerfile         # Docker configuration for the FastAPI app
+│   ├── etl.py             # ETL scripts for data transformation
+│   ├── main.py            # FastAPI application
+│   ├── queries.cypher     # Cypher queries for Neo4j
+│   ├── requirements.txt   # Python dependencies
+│   ├── start.sh           # Startup script
+│   └── utils.py           # Utility functions
 ├── postgres/
-│   ├── init/            # Database initialization scripts
-│   ├── db_model.sql     # Database schema
-│   └── db_seed.sql      # Sample data
-├── neo4j/               # Neo4j data and configuration
-├── docker-compose.yml   # Docker Compose configuration
-└── README.md            # This file
+│   └── init/              # Database initialization scripts
+│       ├── 01_schema.sql  # Database schema
+│       ├── 02_seed.sql    # Sample data
+├── neo4j/                 # Neo4j data and configuration
+├── docker-compose.yml     # Docker Compose configuration
+└── README.md              # This file
 ```
 
 ## Prerequisites
