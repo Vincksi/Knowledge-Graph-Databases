@@ -222,16 +222,14 @@ Edit `app/queries.cypher` to modify Neo4j constraints and indexes.
 ├── app/
 │   ├── dockerfile
 │   ├── requirements.txt
-│   ├── main.py           # FastAPI application
-│   ├── etl.py            # ETL script
-│   └── queries.cypher    # Neo4j schema
+│   ├── main.py            # FastAPI application
+│   ├── etl.py             # ETL script
+│   └── queries.cypher     # Neo4j schema
 ├── postgres/
-│   ├── init/
-│   │   ├── 01_model.sql  # Database schema
-│   │   └── 02_seed.sql   # Sample data
-│   ├── db_model.sql
-│   └── db_seed.sql
+│   └── init/              
+│       ├── db_model.sql   # Database schema
+│       └── db_seed.sql    # Sample data
 └── neo4j/
-    ├── data/             # Neo4j data (created by Docker)
-    └── import/           # Files for import
+    ├── data/              # Neo4j data (created by Docker)
+    └── import/            # Files for import
 ```
