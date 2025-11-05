@@ -189,6 +189,7 @@ def etl():
     except Exception as e:
         print(f"\n✗ ETL process failed: {e}")
         raise
+    
     finally:
         # Clean up connections
         pg_conn.close()

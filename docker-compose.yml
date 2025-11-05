@@ -61,7 +61,30 @@ services:
         condition: service_healthy
       neo4j:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import http.client; conn = http.client.HTTPConnection('localhost', 8000); conn.request('GET', '/health'); r = conn.getresponse(); assert r.status == 200"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
+
+  checks:
+    build:
+      context: .
+      dockerfile: ./dockerfile.checks
+    container_name: app-checks
+    depends_on:
+      app:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=shop
+      - APP_HOST=app
+      - APP_PORT=8000
 
 volumes:
   postgres_data:

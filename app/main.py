@@ -56,7 +56,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    """Health check endpoint"""
+    """Root endpoint with basic info"""
     return {
         "status": "healthy",
         "message": "Shop API is running",
@@ -65,6 +65,13 @@ def read_root():
             "neo4j": "connected" if neo4j_driver else "disconnected"
         }
     }
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint for container orchestration"""
+    if not pg_conn or not neo4j_driver:
+        raise HTTPException(status_code=503, detail="Database not connected")
+    return {"ok": True}
 
 @app.post("/etl/run")
 def trigger_etl(background_tasks: BackgroundTasks):

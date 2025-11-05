@@ -1,0 +1,30 @@
+FROM python:3.9-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Add parent directory to Python path
+ENV PYTHONPATH="${PYTHONPATH}:/app/.."
+
+# Copy requirements first to leverage Docker cache
+COPY app/requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the check script
+COPY scripts/check_containers_in_docker.sh /app/check_containers_in_docker.sh
+RUN chmod +x /app/check_containers_in_docker.sh
+
+# Copy the ETL script and utils
+COPY app/etl.py .
+COPY app/utils.py .
+
+# Default command
+CMD ["/app/check_containers_in_docker.sh"]
