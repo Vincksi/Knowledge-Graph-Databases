@@ -9,12 +9,39 @@ This FastAPI application provides endpoints to interact with both PostgreSQL and
 # Start all services
 docker compose up -d
 
+# Run health checks
+docker compose up checks
+
 # Check logs
 docker compose logs -f
 
 # Stop all services
 docker compose down
 ```
+
+## Container Health Checks
+
+The application includes a health check service that verifies all components are functioning correctly. To run the checks:
+
+```bash
+docker compose up checks
+```
+
+This will perform the following validations:
+1. **FastAPI Health Check**: Verifies the API is responding
+2. **PostgreSQL Connection**: Tests database connectivity and runs sample queries
+3. **ETL Process**: Executes the ETL process and verifies successful completion
+
+### Environment Variables for Checks
+
+The following environment variables can be configured for the checks:
+
+- `APP_HOST`: FastAPI service hostname (default: `app`)
+- `APP_PORT`: FastAPI service port (default: `8000`)
+- `PG_HOST`: PostgreSQL hostname (default: `postgres`)
+- `PG_USER`: PostgreSQL username (default: `postgres`)
+- `PG_PASSWORD`: PostgreSQL password (default: `postgres`)
+- `PG_DB`: PostgreSQL database name (default: `shop`)
 
 ## Services
 
@@ -213,23 +240,3 @@ Edit `app/queries.cypher` to modify Neo4j constraints and indexes.
 - Check if all services are healthy: `docker compose ps`
 - View API logs: `docker compose logs app`
 - Rebuild if needed: `docker compose up --build -d`
-
-## Project Structure
-
-```
-.
-├── docker-compose.yml
-├── app/
-│   ├── dockerfile
-│   ├── requirements.txt
-│   ├── main.py            # FastAPI application
-│   ├── etl.py             # ETL script
-│   └── queries.cypher     # Neo4j schema
-├── postgres/
-│   └── init/              
-│       ├── db_model.sql   # Database schema
-│       └── db_seed.sql    # Sample data
-└── neo4j/
-    ├── data/              # Neo4j data (created by Docker)
-    └── import/            # Files for import
-```

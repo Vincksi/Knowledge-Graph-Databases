@@ -15,21 +15,34 @@ A comprehensive project demonstrating the integration of PostgreSQL and Neo4j gr
 
 ```
 .
-├── app/                   # Application code
-│   ├── dockerfile         # Docker configuration for the FastAPI app
-│   ├── etl.py             # ETL scripts for data transformation
-│   ├── main.py            # FastAPI application
-│   ├── queries.cypher     # Cypher queries for Neo4j
-│   ├── requirements.txt   # Python dependencies
-│   ├── start.sh           # Startup script
-│   └── utils.py           # Utility functions
-├── postgres/
-│   └── init/              # Database initialization scripts
-│       ├── db_model.sql   # Database schema
-│       └── db_seed.sql    # Sample data
-├── neo4j/                 # Neo4j data and configuration
-├── docker-compose.yml     # Docker Compose configuration
-└── README.md              # This file
+├── app/                               # Application code
+│   ├── dockerfile                     # Docker configuration for the FastAPI app
+│   ├── etl.py                         # ETL scripts for data transformation
+│   ├── main.py                        # FastAPI application
+│   ├── queries.cypher                 # Cypher queries for Neo4j
+│   ├── requirements.txt               # Python dependencies
+│   ├── start.sh                       # Startup script
+│   └── utils.py                       # Utility functions
+│
+├── scripts/                           # Utility scripts
+│   ├── check_containers.sh            # Local container health checks
+│   └── check_containers_in_docker.sh  # Containerized health checks
+│
+├── postgres/                          # PostgreSQL configuration
+│   └── init/                          # Database initialization scripts
+│       ├── db_model.sql               # Database schema
+│       └── db_seed.sql                # Sample data
+│
+├── neo4j/                             # Neo4j data and configuration
+│   ├── data/                          # Neo4j database files
+│   ├── logs/                          # Log files
+│   ├── import/                        # Data import directory
+│   └── conf/                          # Configuration files
+│
+├── dockerfile.checks                  # Dockerfile for health check service
+├── docker-compose.yml                 # Docker Compose configuration
+├── README.md                          # This file
+└── API_USAGE.md                       # API documentation
 ```
 
 ## Prerequisites
@@ -54,6 +67,16 @@ A comprehensive project demonstrating the integration of PostgreSQL and Neo4j gr
    - PostgreSQL on port 5432
    - Neo4j Browser on port 7474
    - FastAPI application on port 8000
+
+3. **Run health checks**
+   To verify that all services are running correctly:
+   ```bash
+   docker-compose up checks
+   ```
+   This will run a series of checks including:
+   - FastAPI health endpoint
+   - PostgreSQL connectivity
+   - ETL process execution
 
 3. **Access the services**
    - **FastAPI Docs**: http://localhost:8000/docs
@@ -83,6 +106,12 @@ The application uses the following environment variables:
 - `NEO4J_URI`: Neo4j connection URI
 - `NEO4J_USER`: Neo4j username
 - `NEO4J_PASSWORD`: Neo4j password
+- `APP_HOST`: Hostname of the FastAPI application (default: app)
+- `APP_PORT`: Port of the FastAPI application (default: 8000)
+- `PG_HOST`: Hostname of the PostgreSQL server (default: postgres)
+- `PG_USER`: PostgreSQL username (default: postgres)
+- `PG_PASSWORD`: PostgreSQL password (default: postgres)
+- `PG_DB`: PostgreSQL database name (default: shop)
 
 ## License
 
